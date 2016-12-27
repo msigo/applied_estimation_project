@@ -5,26 +5,26 @@ video_file = 1;
 
 verbose = 2;
 
-if video_file == 1
-    hough_on = 1;
-    radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
-<<<<<<< HEAD
-    binary_threshold = 0.02;
-    video_file = 'Billiard_black_ball.mov';
-else
-    hough_on = 1;
-    radii_thresholds = [15,20]; % Counted the radii of a ball to aprox 11 pixels.
-    binary_threshold = 0.3;
-=======
-    binary_threshold = 10;
-    video_file = 'Billiard_black_ball.mov';
-else
-    hough_on = 1;
-    radii_thresholds = [15,20]; 
-    binary_threshold = 78;
->>>>>>> refs/remotes/origin/master
-    video_file = 'billiardblack.mp4';
+switch(video_file) 
+    case 1
+        hough_on = 1;
+        radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
+        binary_threshold = 0.02;
+        video_file = 'Billiard_black_ball.mov';
+
+    case 2
+        hough_on = 1;
+        radii_thresholds = [15,20]; % Counted the radii of a ball to aprox 11 pixels.
+        binary_threshold = 0.3;
+        binary_threshold = 10;
+        video_file = 'Billiard_black_ball.mov';
+    case 3
+        hough_on = 1;
+        radii_thresholds = [15,20]; 
+        binary_threshold = 78;
+        video_file = 'billiardblack.mp4';
 end
+
     
     
 
@@ -81,8 +81,8 @@ for k = 20:4:Nfrm_movie
     % Showing Image
     
     
-    %draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
-    show_state_estimated(X, Y_k);
+    draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
+    %show_state_estimated(X, Y_k);
 
 end
 
