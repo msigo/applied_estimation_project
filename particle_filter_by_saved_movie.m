@@ -9,20 +9,19 @@ switch(video_file)
     case 1
         hough_on = 1;
         radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
-        binary_threshold = 0.02;
+        binary_threshold = 10;
         video_file = 'Billiard_black_ball.mov';
 
     case 2
         hough_on = 1;
-        radii_thresholds = [15,20]; % Counted the radii of a ball to aprox 11 pixels.
-        binary_threshold = 0.3;
-        binary_threshold = 10;
-        video_file = 'Billiard_black_ball.mov';
+        radii_thresholds = [15,20]; 
+        binary_threshold = 78;
+        video_file = 'billiardblack.mp4';
     case 3
         hough_on = 1;
         radii_thresholds = [15,20]; 
         binary_threshold = 78;
-        video_file = 'billiardblack.mp4';
+        video_file = 'billiardblack2.mp4';
 end
 
     
