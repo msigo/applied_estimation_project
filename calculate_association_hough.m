@@ -1,4 +1,4 @@
-function [outlier,likelihood] = calculate_association_hough(particles,pic,pos_stD,centers,lambda_psi)
+function [outlier,likelihood] = calculate_association_hough(particles,pic,pos_stD,centers,lambda_psi, target_rgb)
 image_height = size(pic, 1);
 image_width = size(pic, 2);
 
@@ -16,6 +16,8 @@ if (size(centers,1)==0)
     outlier = ones(1,N);
     return 
 end
+
+
 for k = 1:N
     
     m = particles(1,k);
