@@ -25,8 +25,8 @@ for k = 1:N
     J = (n >= 1 & n <= image_width);
     
     if I && J
-        D = (abs(particles(2:-1:1,k)'-centers))';
-        
+        %D = (abs(particles(2:-1:1,k)'-centers))';
+        D = min(pdist2(particles(2:-1:1,k)',centers));
         D2 = D' * D;
         
         likelihood(k) = A*exp(D2*B);
