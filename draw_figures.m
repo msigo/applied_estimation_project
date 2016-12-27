@@ -1,8 +1,10 @@
-function draw_figures(particles,image_frame, centers, radii, hough_on, binary)
+function draw_figures(particles,image_frame, centers, radii, hough_on, binary, verbose)
 
 figure(1)
 
-subplot(2,2,1)
+if verbose > 1
+    subplot(2,2,1)
+end
 image(image_frame)
 title('Showing Particle cloud')
 
@@ -15,9 +17,11 @@ end
 
 hold off
 
-subplot(2,2,2)
-image(binary);
-title('Binary image')
+if verbose > 1
+    subplot(2,2,2)
+    image(binary);
+    title('Binary image')
+end
 
 
 drawnow

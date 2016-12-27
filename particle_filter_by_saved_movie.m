@@ -1,9 +1,24 @@
 %% Parameters
 %test
 
-hough_on = 1;
-radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
-binary_threshold = 10;
+video_file = 1;
+
+verbose = 2;
+
+if video_file == 1
+    hough_on = 1;
+    radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
+    binary_threshold = 10;
+    video_file = 'Billiard_black_ball.mov';
+else
+    hough_on = 1;
+    radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
+    binary_threshold = 10;
+    video_file = 'billiardblack.mp4';
+end
+    
+    
+
 
 centers = 0;
 radii = 0;
@@ -21,7 +36,7 @@ R= [Xstd_pos,0,0,0;0,Xstd_pos,0,0;0,0,Xstd_vec,0;0,0,0,Xstd_vec].^2;
 Xrgb_trgt = [0; 0; 255];
 
 %% Loading 
-video = VideoReader('Billiard_black_ball.mov');
+video = VideoReader(video_file);
 
 Npix_resolution = [video.Width video.Height];
 Nfrm_movie = floor(video.Duration * video.FrameRate);
@@ -57,7 +72,7 @@ for k = 20:4:Nfrm_movie
     % Showing Image
     
     
-    draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary); 
+    draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
     %show_state_estimated(X, Y_k);
 
 end
