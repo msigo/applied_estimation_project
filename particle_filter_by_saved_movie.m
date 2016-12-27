@@ -8,12 +8,21 @@ verbose = 2;
 if video_file == 1
     hough_on = 1;
     radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
+<<<<<<< HEAD
     binary_threshold = 0.02;
     video_file = 'Billiard_black_ball.mov';
 else
     hough_on = 1;
     radii_thresholds = [15,20]; % Counted the radii of a ball to aprox 11 pixels.
     binary_threshold = 0.3;
+=======
+    binary_threshold = 10;
+    video_file = 'Billiard_black_ball.mov';
+else
+    hough_on = 1;
+    radii_thresholds = [15,20]; 
+    binary_threshold = 78;
+>>>>>>> refs/remotes/origin/master
     video_file = 'billiardblack.mp4';
 end
     
@@ -54,10 +63,10 @@ for k = 20:4:Nfrm_movie
     
     if (hough_on)
         %find circles
-        Y_k_binary = im2bw(Y_k, binary_threshold);
-        %Y_k_binary = Y_k_binary<binary_threshold;
+        Y_k_binary = rgb2gray(Y_k);
+        Y_k_binary = Y_k_binary<binary_threshold;
         
-        [centers, radii] = imfindcircles(Y_k_binary,radii_thresholds,'ObjectPolarity','dark', ...
+        [centers, radii] = imfindcircles(Y_k_binary,radii_thresholds,'ObjectPolarity','bright', ...
         'Sensitivity',0.92);
         % Calculating Log Likelihood
         [outlier,L] =calculate_association_hough(X(1:2,:),Y_k,Xstd_pos_for_hough, centers,1e-9);
