@@ -1,6 +1,13 @@
 %% Parameters
 %test
 
+hough_on = 1;
+radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
+
+
+centers = 0;
+radii = 0;
+
 F_update = [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1];%[1 0 1 0; 0 1 0 1; 0 0 1 0; 0 0 0 1];
 
 Npop_particles = 4000;
@@ -38,7 +45,13 @@ for k = 20:2:Nfrm_movie
     %X = resample_particles(X, L);
     X = systematic_resample(X,L);
     % Showing Image
-    show_particles(X, Y_k); 
+    
+    if hough_on
+        [centers, radii] = imfindcircles(Y_k,[10 16],'ObjectPolarity','dark', ...
+        'Sensitivity',0.9);
+    end
+    
+    show_particles(X, Y_k, centers, radii, hough_on); 
     %show_state_estimated(X, Y_k);
 
 end
