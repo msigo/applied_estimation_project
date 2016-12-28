@@ -23,14 +23,14 @@ switch(video_file)
         binary_threshold = 88;%74
         video_file = 'billiardblack.mp4';
     case 3
-        level = 'dark'
+        level = 'bright'
         hough_on = 1;
         radii_thresholds = [30,40]; 
         binary_threshold = 150;
         video_file = 'billiard3.mp4';
     
     case 4
-        level = 'dark' 
+        level = 'bright' 
         hough_on = 1;
         radii_thresholds = [30,40]; 
         binary_threshold = 150;
@@ -59,7 +59,11 @@ Xstd_pos_for_hough = 20; %measurement noise
 Xstd_vec = 5;%process noise in velocity
 R= [Xstd_pos,0,0,0;0,Xstd_pos,0,0;0,0,Xstd_vec,0;0,0,0,Xstd_vec].^2;
 
-Xrgb_trgt = [229; 235; 64];
+Xrgb_trgt = [239; 212; 40];
+%[229; 235; 64]; %yellow
+%[0,0,160]; %blue
+%[0,0,0]; %black
+
 
 %% Loading 
 video = VideoReader(video_file);
