@@ -19,7 +19,7 @@ hold off
 
 if verbose > 1
     subplot(2,2,2)
-    image(binary);
+    imshow(binary);
     title('Binary image')
 end
 
