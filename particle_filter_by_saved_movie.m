@@ -3,7 +3,7 @@
 
 rng(2);
 
-video_file = 1;
+video_file = 2;
 motion_model = 0;
 
 verbose = 2;
@@ -19,7 +19,7 @@ switch(video_file)
     case 2
         level = 'bright';
         hough_on = 1;
-        radii_thresholds = [13,20]; 
+        radii_thresholds = [10,20];%[13,20]; 
         binary_threshold = 88;%74
         video_file = 'billiardblack.mp4';
     case 3
@@ -59,7 +59,7 @@ Xstd_pos_for_hough = 10;%25;
 Xstd_vec = 5;%5;
 R= [Xstd_pos,0,0,0;0,Xstd_pos,0,0;0,0,Xstd_vec,0;0,0,0,Xstd_vec].^2;
 
-Xrgb_trgt = [0; 0; 0];
+Xrgb_trgt = [255; 0; 0];
 
 %% Loading 
 video = VideoReader(video_file);
@@ -82,8 +82,10 @@ for k = 20:2:Nfrm_movie
     
     if (hough_on)
         %find circles
-        Y_k_binary = rgb2gray(Y_k);
-        Y_k_binary = Y_k_binary<binary_threshold;
+        %Y_k_binary = rgb2gray(Y_k);
+        %Y_k_binary = Y_k_binary<binary_threshold;
+        
+        Y_k_binary = Y_k;
         
         [centers, radii] = imfindcircles(Y_k_binary,radii_thresholds,'ObjectPolarity',level, ...
         'Sensitivity',0.88);
@@ -103,8 +105,8 @@ for k = 20:2:Nfrm_movie
     
     
     %draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
-    %show_state_estimated(X, Y_k);
-    show_particles_and_state_estimated(X, Y_k);
+    show_state_estimated(X, Y_k);
+    %show_particles_and_state_estimated(X, Y_k);
 
 end
 

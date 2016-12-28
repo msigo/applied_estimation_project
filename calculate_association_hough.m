@@ -40,7 +40,7 @@ for k = 1:N
         H2 = H' * H;
         
         %Use both distance and color to calculate the likelihood
-        D2 = sqrt(5*D2^2 + H2^2);
+        D2 = sqrt(D2^2 + H2^2);
         
         likelihood(k) = A*exp(D2*B);
     else
