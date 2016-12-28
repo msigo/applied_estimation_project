@@ -1,28 +1,40 @@
 %% Parameters
 %test
 
+rng(2);
+
 video_file = 2;
-motion_model = 0;
+motion_model = 1;
 
 verbose = 2;
 
 switch(video_file) 
     case 1
+        level = 'bright';
         hough_on = 1;
         radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
         binary_threshold = 10;
         video_file = 'Billiard_black_ball.mov';
 
     case 2
+        level = 'bright';
         hough_on = 1;
         radii_thresholds = [13,20]; 
-        binary_threshold = 88;
+        binary_threshold = 88;%74
         video_file = 'billiardblack.mp4';
     case 3
+        level = 'dark'
         hough_on = 1;
-        radii_thresholds = [4,8]; 
-        binary_threshold = 100;
-        video_file = 'billiardblack2.mp4';
+        radii_thresholds = [30,40]; 
+        binary_threshold = 150;
+        video_file = 'billiard3.mp4';
+    
+    case 4
+        level = 'dark' 
+        hough_on = 1;
+        radii_thresholds = [30,40]; 
+        binary_threshold = 150;
+        video_file = 'billiard4.mp4';
 end
 
     
@@ -39,10 +51,10 @@ else
     k_motion = 0;
 end
 
-Npop_particles = 800;
+Npop_particles = 3000;
 
 Xstd_rgb = 50;
-Xstd_pos = 25;%25;
+Xstd_pos = 40;%25;%25;
 Xstd_pos_for_hough = 5;%25;
 Xstd_vec = 5;%5;
 R= [Xstd_pos,0,0,0;0,Xstd_pos,0,0;0,0,Xstd_vec,0;0,0,0,Xstd_vec].^2;
@@ -65,7 +77,7 @@ for k = 20:4:Nfrm_movie
     Y_k = read(video, k);
     
     % predict 
-    X =predict_particles(X,old_particles,R,F_update, k_motion);
+    X = predict_particles(X,old_particles,R,F_update, k_motion);
     old_particles = X;
     
     if (hough_on)
@@ -73,8 +85,8 @@ for k = 20:4:Nfrm_movie
         Y_k_binary = rgb2gray(Y_k);
         Y_k_binary = Y_k_binary<binary_threshold;
         
-        [centers, radii] = imfindcircles(Y_k_binary,radii_thresholds,'ObjectPolarity','bright', ...
-        'Sensitivity',0.92);
+        [centers, radii] = imfindcircles(Y_k_binary,radii_thresholds,'ObjectPolarity',level, ...
+        'Sensitivity',0.88);
         % Calculating Log Likelihood
         
         
@@ -90,8 +102,8 @@ for k = 20:4:Nfrm_movie
     % Showing Image
     
     
-    %draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
-    show_state_estimated(X, Y_k);
+    draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
+    %show_state_estimated(X, Y_k);
 
 end
 
