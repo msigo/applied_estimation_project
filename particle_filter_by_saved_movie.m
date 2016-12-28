@@ -14,7 +14,7 @@ switch(video_file)
         hough_on = 1;
         radii_thresholds = [10,16]; % Counted the radii of a ball to aprox 11 pixels.
         binary_threshold = 10;
-        video_file = 'Billiard_black_ball.mov';
+        video_file ='Billiard.mov';%'Billiard_black_ball.mov'
 
     case 2
         level = 'bright';
@@ -53,13 +53,13 @@ end
 
 Npop_particles = 1000;
 
-Xstd_rgb = 50;
-Xstd_pos = 35;%25;%25;
-Xstd_pos_for_hough = 10;%25;
-Xstd_vec = 5;%5;
+Xstd_rgb = 70; %rgb tolerance.
+Xstd_pos = 45; % process noise in x,y.
+Xstd_pos_for_hough = 20; %measurement noise
+Xstd_vec = 5;%process noise in velocity
 R= [Xstd_pos,0,0,0;0,Xstd_pos,0,0;0,0,Xstd_vec,0;0,0,0,Xstd_vec].^2;
 
-Xrgb_trgt = [255; 0; 0];
+Xrgb_trgt = [229; 235; 64];
 
 %% Loading 
 video = VideoReader(video_file);
@@ -75,7 +75,6 @@ for k = 20:2:Nfrm_movie
     
     % Getting Image
     Y_k = read(video, k);
-    
     % predict 
     X = predict_particles(X,old_particles,R,F_update, k_motion);
     old_particles = X;
@@ -84,11 +83,14 @@ for k = 20:2:Nfrm_movie
         %find circles
         %Y_k_binary = rgb2gray(Y_k);
         %Y_k_binary = Y_k_binary<binary_threshold;
+        Y_k_binary_temp =Y_k(:,:,1)>Xrgb_trgt(1) -Xstd_rgb & Y_k(:,:,1)< Xrgb_trgt(1) +Xstd_rgb...
+            &Y_k(:,:,2)>Xrgb_trgt(2)-Xstd_rgb & Y_k(:,:,2)< Xrgb_trgt(2)+Xstd_rgb...
+            &Y_k(:,:,3)>Xrgb_trgt(3)-Xstd_rgb & Y_k(:,:,3)< Xrgb_trgt(3)+Xstd_rgb;
         
-        Y_k_binary = Y_k;
+        Y_k_binary=Y_k_binary_temp;
         
         [centers, radii] = imfindcircles(Y_k_binary,radii_thresholds,'ObjectPolarity',level, ...
-        'Sensitivity',0.88);
+        'Sensitivity',0.92);
         % Calculating Log Likelihood
         
         
@@ -105,8 +107,8 @@ for k = 20:2:Nfrm_movie
     
     
     %draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
-    show_state_estimated(X, Y_k);
-    %show_particles_and_state_estimated(X, Y_k);
+    %show_state_estimated(X, Y_k);
+    show_particles_and_state_estimated(X, Y_k);
 
 end
 
