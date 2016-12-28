@@ -3,8 +3,8 @@
 
 rng(2);
 
-video_file = 2;
-motion_model = 1;
+video_file = 1;
+motion_model = 0;
 
 verbose = 2;
 
@@ -51,11 +51,11 @@ else
     k_motion = 0;
 end
 
-Npop_particles = 3000;
+Npop_particles = 1000;
 
 Xstd_rgb = 50;
-Xstd_pos = 40;%25;%25;
-Xstd_pos_for_hough = 5;%25;
+Xstd_pos = 35;%25;%25;
+Xstd_pos_for_hough = 10;%25;
 Xstd_vec = 5;%5;
 R= [Xstd_pos,0,0,0;0,Xstd_pos,0,0;0,0,Xstd_vec,0;0,0,0,Xstd_vec].^2;
 
@@ -71,7 +71,7 @@ Nfrm_movie = floor(video.Duration * video.FrameRate);
 %initialize particles
 X =initialize_particles(Npix_resolution,Npop_particles);
 old_particles = X;
-for k = 20:4:Nfrm_movie
+for k = 20:2:Nfrm_movie
     
     % Getting Image
     Y_k = read(video, k);
@@ -90,7 +90,7 @@ for k = 20:4:Nfrm_movie
         % Calculating Log Likelihood
         
         
-        [outlier,L] =calculate_association_hough(X(1:2,:),Y_k,Xstd_pos_for_hough, centers,1e-9);
+        [outlier,L] =calculate_association_hough(X(1:2,:),Y_k,Xstd_pos_for_hough, centers,1e-9,Xrgb_trgt);
     else
         % Calculating Log Likelihood
         [outlier,L] = calculate_association(X(1:2,:),Y_k,Xstd_rgb, Xrgb_trgt,1e-9);
@@ -102,8 +102,9 @@ for k = 20:4:Nfrm_movie
     % Showing Image
     
     
-    draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
+    %draw_figures(X, Y_k, centers, radii, hough_on, Y_k_binary, verbose); 
     %show_state_estimated(X, Y_k);
+    show_particles_and_state_estimated(X, Y_k);
 
 end
 
