@@ -53,9 +53,9 @@ for k = 1:N
         H2 = H' * H;
         
         %Use both distance and color to calculate the likelihood
-        combinedInnovation = H2*D2;
+        combinesLikelihood = ;
         
-        likelihood(k) = A*exp(combinedInnovation*B);
+        likelihood(k) = A*exp(D2*B);
     else
         
         likelihood(k) = 0;
