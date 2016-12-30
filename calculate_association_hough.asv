@@ -2,6 +2,10 @@ function [outlier,likelihood] = calculate_association_hough(particles,pic,pos_st
 image_height = size(pic, 1);
 image_width = size(pic, 2);
 
+spread_likelihood = 0;
+
+
+
 %number of particles 
 N = size(particles,2);
 
@@ -25,6 +29,11 @@ if (size(centers,1)==0)
             H = C - target_rgb;
             H2 = H' * H;
             likelihood(k) = A*exp(H2*B);
+            
+            if spread_likelihood
+                likelihood(k) = 1/N*ones(N);
+            end
+            
             outlier = ones(1,N);
         end
      end
@@ -43,6 +52,7 @@ for k = 1:N
     if I && J
         %calculate likelihood:
         
+        
         %By distance
         D = min(pdist2(particles(2:-1:1,k)',centers));
         D2 = D' * D;
@@ -53,9 +63,9 @@ for k = 1:N
         H2 = H' * H;
         
         %Use both distance and color to calculate the likelihood
-        combinesLikelihood = ;
+        combinedInnovation = D2;
         
-        likelihood(k) = A*exp(D2*B);
+        likelihood(k) = A*exp(combinedInnovation*B);
     else
         
         likelihood(k) = 0;

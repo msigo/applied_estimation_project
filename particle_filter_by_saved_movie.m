@@ -2,8 +2,8 @@
 %test
 
 % 
-rng(2);
-video_file = 2;
+rng(3);
+video_file = 4;
 motion_model = 1;
 
 nCircles = 3;
@@ -29,7 +29,7 @@ switch(video_file)
        
         Xrgb_trgt = [229; 235; 64]; % Track yellow
         %Xrgb_trgt = [0,0,160]; % Track blue
-        %Xrgb_trgt = [0,0,0];
+        Xrgb_trgt = [0;0;0];
         %[0,0,0]; %black
     case 3
         level = 'bright'
@@ -45,10 +45,10 @@ switch(video_file)
     case 4
         level = 'bright';
         hough_on = 1;
-        radii_thresholds = [10,50]; 
+        radii_thresholds = [30,50]; 
         binary_threshold = 150;
         video_file = 'billiard4.mp4';
-        Xrgb_trgt = [255,255,255];
+        Xrgb_trgt = [255;255;255];
         %[229; 235; 64]; %yellow
         %[0,0,160]; %blue
         %[0,0,0]; %black
@@ -112,15 +112,14 @@ for k = 20:2:Nfrm_movie
     old_mean = particle_mean;
     
     if (hough_on)
-        %find circles
-        %Y_k_binary = rgb2gray(Y_k);
-        %Y_k_binary = Y_k_binary<binary_threshold;
+        
         Y_k_binary_temp =Y_k(:,:,1)>Xrgb_trgt(1) -Xstd_rgb & Y_k(:,:,1)< Xrgb_trgt(1) +Xstd_rgb...
             &Y_k(:,:,2)>Xrgb_trgt(2)-Xstd_rgb & Y_k(:,:,2)< Xrgb_trgt(2)+Xstd_rgb...
             &Y_k(:,:,3)>Xrgb_trgt(3)-Xstd_rgb & Y_k(:,:,3)< Xrgb_trgt(3)+Xstd_rgb;
         
         Y_k_binary=Y_k_binary_temp;
         
+        %find circles
         [centers, radii] = imfindcircles(Y_k_binary,radii_thresholds,'ObjectPolarity',level, ...
         'Sensitivity',0.92);
         % Calculating Log Likelihood
