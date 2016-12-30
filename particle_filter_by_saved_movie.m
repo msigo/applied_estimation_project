@@ -52,18 +52,26 @@ switch(video_file)
                 sigma_rgb = 70;
         end
         
-    case 3
+     case 3
         level = 'bright'
         hough_on = 1;
         radii_thresholds = [30,40]; 
         binary_threshold = 150;
         video_file = 'billiard3.mp4';
-        threshold_color = [239; 212; 40];
-        sigma_rgb = 70; %rgb tolerance.
-
-        %[229; 235; 64]; %yellow
-        %[0,0,160]; %blue
-        %Xrgb_trgt = [0,0,0]; %black
+        
+        
+        color_to_track = 'white';
+        
+        switch(color_to_track)
+            case 'yellow'
+                 Xrgb_trgt = [239; 212; 40];
+                 Xstd_rgb = 100; %rgb tolerance
+               
+            case 'white'
+                 Xrgb_trgt = [240; 240; 240];
+                 Xstd_rgb = 100; %rgb tolerance
+        end
+                
     
     case 4
         level = 'bright';
@@ -71,20 +79,50 @@ switch(video_file)
         radii_thresholds = [30,50]; 
         binary_threshold = 150;
         video_file = 'billiard4.mp4';
-        threshold_color = [255;255;255];
-        sigma_rgb = 70; %rgb tolerance.
+        color_to_track = 'black';
+        
+        switch(color_to_track)
+            case 'black'
+                 Xrgb_trgt = [0; 0; 0];
+                 Xstd_rgb = 50; %rgb tolerance
+               
+            case 'white'
+                 Xrgb_trgt = [240; 240; 240];
+                 Xstd_rgb = 100; %rgb tolerance
+        end
         
     case 5
         level = 'bright';
         hough_on = 1;
-        radii_thresholds = [25,40]; 
-        binary_threshold = 150;
+        radii_thresholds = [10,15];
         video_file = 'billiard2.mp4';
-        threshold_color = [255,255,255];
-        sigma_rgb = 70; %rgb tolerance.
-        %[229; 235; 64]; %yellow
-        %[0,0,160]; %blue
-        %[0,0,0]; %black
+        color_to_track = 'yellow';
+        
+        switch(color_to_track)               
+            case 'yellow'
+                 Xrgb_trgt = [239; 212; 40];
+                 Xstd_rgb = 100; %rgb tolerance
+        end
+        
+        
+        
+        
+    case 6
+        level = 'bright';
+        hough_on = 1;
+        radii_thresholds = [8,12];
+        video_file = 'billiard5.mp4';
+        color_to_track = 'white';
+        
+        switch(color_to_track)               
+            case 'black'
+                 Xrgb_trgt = [0; 0; 0];
+                 Xstd_rgb = 30; %rgb tolerance
+                 
+            case 'white'
+                Xrgb_trgt = [250;250;250];
+                Xstd_rgb = 50;
+        end
         
 end
 
