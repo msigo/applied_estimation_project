@@ -3,7 +3,7 @@
 
 % 
 rng(3);
-video_file = 2;
+video_file = 3;
 motion_model = 1;
 
 nCircles = 3;
@@ -64,12 +64,12 @@ switch(video_file)
         
         switch(color_to_track)
             case 'yellow'
-                 Xrgb_trgt = [239; 212; 40];
-                 Xstd_rgb = 100; %rgb tolerance
+                 threshold_color = [239; 212; 40];
+                 sigma_rgb = 100; %rgb tolerance
                
             case 'white'
-                 Xrgb_trgt = [240; 240; 240];
-                 Xstd_rgb = 100; %rgb tolerance
+                 threshold_color = [240; 240; 240];
+                 sigma_rgb = 100; %rgb tolerance
         end
                 
     
@@ -83,12 +83,12 @@ switch(video_file)
         
         switch(color_to_track)
             case 'black'
-                 Xrgb_trgt = [0; 0; 0];
-                 Xstd_rgb = 50; %rgb tolerance
+                 threshold_color = [0; 0; 0];
+                 sigma_rgb = 50; %rgb tolerance
                
             case 'white'
-                 Xrgb_trgt = [240; 240; 240];
-                 Xstd_rgb = 100; %rgb tolerance
+                 threshold_color = [240; 240; 240];
+                 sigma_rgb = 100; %rgb tolerance
         end
         
     case 5
@@ -100,8 +100,8 @@ switch(video_file)
         
         switch(color_to_track)               
             case 'yellow'
-                 Xrgb_trgt = [239; 212; 40];
-                 Xstd_rgb = 100; %rgb tolerance
+                 threshold_color = [239; 212; 40];
+                 sigma_rgb = 100; %rgb tolerance
         end
         
         
@@ -111,17 +111,17 @@ switch(video_file)
         level = 'bright';
         hough_on = 1;
         radii_thresholds = [8,12];
-        video_file = 'billiard5.mp4';
+        video_file = 'billiardblack2.mp4';
         color_to_track = 'white';
         
         switch(color_to_track)               
             case 'black'
-                 Xrgb_trgt = [0; 0; 0];
-                 Xstd_rgb = 30; %rgb tolerance
+                 threshold_color = [0; 0; 0];
+                 sigma_rgb = 30; %rgb tolerance
                  
             case 'white'
-                Xrgb_trgt = [250;250;250];
-                Xstd_rgb = 50;
+                threshold_color = [250;250;250];
+                sigma_rgb = 50;
         end
         
 end
@@ -162,6 +162,9 @@ old_mean = particle_mean;
 for t = 1:Nfrm_movie
     Y_K_movie(:,:,:,t) = read(video, t);
 end
+
+
+Y_result = zeros(video.Width, video.Height, Nfrm_movie);
 
 for k = 20:2:Nfrm_movie
     
