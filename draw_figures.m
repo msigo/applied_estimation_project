@@ -22,11 +22,12 @@ if verbose > 1
     imshow(binary);
     title('Binary image')
     
+    plot(particles(2,:), particles(1,:), '.', 'color', 'b');
+
     if hough_on
     viscircles(centers,radii);
     end
     
-    plot(particles(2,:), particles(1,:), '.', 'color', 'b');
     hold off
 end
 

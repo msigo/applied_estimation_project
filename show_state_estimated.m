@@ -1,6 +1,6 @@
 function show_state_estimated(X, Y_k)
 
-X_mean = median(X, 2);
+X_mean = mean(X, 2);
 
 figure(1)
 image(Y_k)

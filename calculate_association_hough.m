@@ -4,7 +4,7 @@ image_width = size(pic, 2);
 
 spread_likelihood = 0;
 
-use_color = 1;
+use_color = 0;
 
 %number of particles 
 N = size(particles,2);
