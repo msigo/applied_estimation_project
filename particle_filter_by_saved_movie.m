@@ -121,15 +121,15 @@ X =initialize_particles(Npix_resolution,Npop_particles);
 old_particles = X;
 particle_mean = mean(X,2);
 old_mean = particle_mean;
-%for t = 1:Nfrm_movie
-%    Y_K_movie(:,:,:,t) = read(video, t);
-%end
+for t = 1:Nfrm_movie
+    Y_K_movie(:,:,:,t) = read(video, t);
+end
 
 for k = 20:2:Nfrm_movie
     
     % Getting Image
-    Y_k = read(video, k);
-    %Y_k = Y_K_movie(:,:,:,k); %If all frames is already read.
+    %Y_k = read(video, k);
+    Y_k = Y_K_movie(:,:,:,k); %If all frames is already read.
     % predict 
     
     X = predict_particles(X,old_particles,R,F_update, particle_mean, old_mean, motion_model);
