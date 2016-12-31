@@ -1,5 +1,6 @@
-function frame = draw_figures(particles,image_frame, centers, radii, binary, verbose, particle_mean)
+function frame = draw_figures(particles,image_frame, centers, radii, binary, verbose, particle_mean, record_movie_flag)
 
+frame = 0;
 
 figure(1)
 
@@ -31,6 +32,8 @@ if verbose > 1
 end
 
 
-frame = getframe(gcf);
+if record_movie_flag
+    frame = getframe(gcf);
+end
 
 drawnow

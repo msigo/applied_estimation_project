@@ -8,6 +8,8 @@ nCircles = 3;
 
 verbose = 2;
 
+record_movie_flag = 0;
+
 
 movieMakeArray = [%{2, 'yellow'}];
                   %{2, 'red'};
@@ -141,12 +143,14 @@ for i = 1:size(movieMakeArray,1)
 
     R= [sigma_xy,0,0,0;0,sigma_xy,0,0;0,0,sigma_vec,0;0,0,0,sigma_vec].^2;
 
-    movie = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshold_color, sigma_rgb, radii_thresholds, nCircles, motion_model_flag, verbose);
+    movie = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshold_color, sigma_rgb, radii_thresholds, nCircles, motion_model_flag, verbose, record_movie_flag);
     
-    v = VideoWriter(sprintf('%s%d.avi',movieName,i),'Motion JPEG AVI');
-    open(v);
-    writeVideo(v,movie);
-    close(v);
+    if record_movie_flag
+        v = VideoWriter(sprintf('%s%d.avi',movieName,i),'Motion JPEG AVI');
+        open(v);
+        writeVideo(v,movie);
+        close(v);
+    end
    
 end
 

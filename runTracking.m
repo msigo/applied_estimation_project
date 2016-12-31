@@ -1,4 +1,4 @@
-function M = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshold_color, sigma_rgb, radii_thresholds, nCircles, motion_model_flag, verbose)
+function M = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshold_color, sigma_rgb, radii_thresholds, nCircles, motion_model_flag, verbose, record_movie_flag)
     video = VideoReader(video_file);
 
     Npix_resolution = [video.Width video.Height];
@@ -56,7 +56,7 @@ function M = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshol
         X = systematic_resample(X,L);
 
         particle_mean = mean(X, 2);
-        M(frameCounter)=draw_figures(X, Y_k, centers, radii, Y_k_binary, verbose, particle_mean); 
+        M(frameCounter) = draw_figures(X, Y_k, centers, radii, Y_k_binary, verbose, particle_mean, record_movie_flag); 
         %show_state_estimated(X, Y_k);
         %show_particles_and_state_estimated(X, Y_k);
 
