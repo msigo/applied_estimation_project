@@ -1,4 +1,4 @@
-function updated_particles = predict_particles(particles,old_particles,R,F_update, particle_mean, old_particle_mean,motion_model)
+function updated_particles = predict_particles(particles,old_particles,R, particle_mean, old_particle_mean,motion_model)
     
 
     k_motion = 0.2;

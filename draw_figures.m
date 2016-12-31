@@ -1,4 +1,4 @@
-function draw_figures(particles,image_frame, centers, radii, hough_on, binary, verbose, particle_mean)
+function frame = draw_figures(particles,image_frame, centers, radii, binary, verbose, particle_mean)
 
 
 figure(1)
@@ -24,12 +24,13 @@ if verbose > 1
     
     plot(particles(2,:), particles(1,:), '.', 'color', 'b');
 
-    if hough_on
+
     viscircles(centers,radii);
-    end
     
     hold off
 end
 
+
+frame = getframe(gcf);
 
 drawnow
