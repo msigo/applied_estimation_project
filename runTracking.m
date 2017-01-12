@@ -1,4 +1,4 @@
-function M = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshold_color, sigma_rgb, radii_thresholds, nCircles, motion_model_flag, verbose, record_movie_flag)
+function M = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshold_color, sigma_rgb, radii_thresholds, nCircles, motion_model_flag, verbose, record_movie_flag, use_color_flag)
     video = VideoReader(video_file);
 
     Npix_resolution = [video.Width video.Height];
@@ -48,7 +48,7 @@ function M = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshol
             radii = radii(1:nCircles);
         end
 
-        [outlier,L] =calculate_association_hough(X(1:2,:),Y_k,sigma_xy_for_hough, centers,1e-9,threshold_color);
+        [outlier,L] =calculate_association_hough(X(1:2,:),Y_k,sigma_xy_for_hough, centers,1e-9,threshold_color, use_color_flag);
        
         
 

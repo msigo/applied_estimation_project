@@ -3,26 +3,27 @@ clear all, close all;
 rng(3);
 video_file = 3;
 motion_model_flag = 1;
+use_color_association_flag =1;
 
 nCircles = 3;
 
-verbose = 2;
+verbose = 3;
 
-record_movie_flag = 0;
+record_movie_flag = 1;
 
 
 movieMakeArray = [%{2, 'yellow'}];
-                  %{2, 'red'};
-                  {2, 'blue'}];
+                  %{2, 'red'};]
+                  %{2, 'blue'}];
                   %{2, 'white'};
-                  %{3, 'yellow'};
+                  {3, 'yellow'};]
                   %{3, 'white'};
                   %{4, 'black'};
                   %{4, 'white'}];
 
                   %{1, 'blue'}]
                  
-movieName = 'video2ResultsBlue'                  
+movieName = 'test'                  
 
 for i = 1:size(movieMakeArray,1)              
     
@@ -143,7 +144,7 @@ for i = 1:size(movieMakeArray,1)
 
     R= [sigma_xy,0,0,0;0,sigma_xy,0,0;0,0,sigma_vec,0;0,0,0,sigma_vec].^2;
 
-    movie = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshold_color, sigma_rgb, radii_thresholds, nCircles, motion_model_flag, verbose, record_movie_flag);
+    movie = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshold_color, sigma_rgb, radii_thresholds, nCircles, motion_model_flag, verbose, record_movie_flag, use_color_association_flag);
     
     if record_movie_flag
         v = VideoWriter(sprintf('%s%d.avi',movieName,i),'Motion JPEG AVI');
