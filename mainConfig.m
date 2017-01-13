@@ -9,7 +9,7 @@ nCircles = 3;
 
 verbose = 3;
 
-record_movie_flag = 1;
+record_movie_flag = 0;
 
 
 movieMakeArray = [%{2, 'yellow'}];
@@ -23,7 +23,7 @@ movieMakeArray = [%{2, 'yellow'}];
 
                   %{1, 'blue'}]
                  
-movieName = 'test'                  
+movieName = 'movie3trackYellow'                  
 
 for i = 1:size(movieMakeArray,1)              
     

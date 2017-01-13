@@ -48,7 +48,7 @@ function M = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshol
             radii = radii(1:nCircles);
         end
 
-        [outlier,L] =calculate_association_hough(X(1:2,:),Y_k,sigma_xy_for_hough, centers,1e-9,threshold_color, use_color_flag);
+        [outlier,L] =calculate_association_hough(X(1:2,:),Y_k,sigma_xy_for_hough, centers,1e-9,threshold_color, use_color_flag, sigma_rgb);
        
         
 

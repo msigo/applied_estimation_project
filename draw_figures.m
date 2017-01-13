@@ -10,17 +10,10 @@ numberOfPlots = verbose;
 
 
 
-subplot(1,numberOfPlots,1)
-hold on
-imshow(image_frame)
-title('Showing estimated state')
 
-plot(particle_mean(2,:), particle_mean(1,:), 'h', 'MarkerSize', 10, 'MarkerEdgeColor', 'b', 'MarkerFaceColor', 'b');
 
-hold off
 
-if verbose > 1
-    subplot(1,numberOfPlots,2)
+    subplot(2,2,1)
     
     hold on 
     imshow(binary);
@@ -33,9 +26,9 @@ if verbose > 1
     
     hold off
     
-    if verbose > 2
+
         % Plot zoomed in at estimated state
-        subplot(1,numberOfPlots,3)
+        subplot(2,2,2)
 
         hold on 
         imshow(binary);
@@ -44,15 +37,21 @@ if verbose > 1
         plot(particles(2,:), particles(1,:), '.', 'color', 'b');
         viscircles(centers,radii);
 
-        set(gca,'XLim',[(particle_mean(2,:) - 100) (particle_mean(2,:) + 100)], 'YLim', [(particle_mean(1,:) - 100) (particle_mean(1,:) + 100)])
+        set(gca,'XLim',[(particle_mean(2,:) - 50) (particle_mean(2,:) + 50)], 'YLim', [(particle_mean(1,:) - 50) (particle_mean(1,:) + 50)])
 
         hold off
-    end
-end
 
 
 
 
+subplot(2,2,[3,4])
+hold on
+imshow(image_frame)
+title('Showing estimated state')
+
+plot(particle_mean(2,:), particle_mean(1,:), 'h', 'MarkerSize', 10, 'MarkerEdgeColor', 'b', 'MarkerFaceColor', 'b');
+
+hold off
 
 
 if record_movie_flag

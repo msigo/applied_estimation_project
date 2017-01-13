@@ -12,13 +12,11 @@ pic = permute(pic,[3 1 2]);
 
 
 if use_color
-    A = 1/sqrt(2 * pi*pos_stD*color_stD);
-    B =  - 0.5 / (pos_stD*color_stD);
-else
     A = 1/sqrt(2 * pi) * pos_stD;
-    B =  - 0.5 / (pos_stD.^2); 
-end
+    B =  - 0.5 / (pos_stD.^2);
+else
     
+
 particles = round(particles);
 if (size(centers,1)==0)
     disp('no circles found')

@@ -5,9 +5,46 @@ frame = 0;
 figure(1)
 
 
-if verbose > 1
-    subplot(3,1,1)
-end
+
+numberOfPlots = verbose;
+
+
+
+
+
+
+    subplot(2,numberOfPlots,2)
+    
+    hold on 
+    imshow(binary);
+    title('Binary image')
+    
+    plot(particles(2,:), particles(1,:), '.', 'color', 'b');
+    viscircles(centers,radii);
+    
+    
+    
+    hold off
+    
+
+        % Plot zoomed in at estimated state
+        subplot(2,2,2)
+
+        hold on 
+        imshow(binary);
+        title('Binary image around estimated state')
+
+        plot(particles(2,:), particles(1,:), '.', 'color', 'b');
+        viscircles(centers,radii);
+
+        set(gca,'XLim',[(particle_mean(2,:) - 50) (particle_mean(2,:) + 50)], 'YLim', [(particle_mean(1,:) - 50) (particle_mean(1,:) + 50)])
+
+        hold off
+
+
+
+
+subplot(2,2,[3,4])
 hold on
 imshow(image_frame)
 title('Showing estimated state')
@@ -15,31 +52,6 @@ title('Showing estimated state')
 plot(particle_mean(2,:), particle_mean(1,:), 'h', 'MarkerSize', 10, 'MarkerEdgeColor', 'b', 'MarkerFaceColor', 'b');
 
 hold off
-
-if verbose > 1
-    subplot(3,1,2)
-    
-    hold on 
-    imshow(binary);
-    title('Binary image')
-    
-    plot(particles(2,:), particles(1,:), '.', 'color', 'b');
-
-
-    viscircles(centers,radii);
-    
-    subplot(3,1,3)
-    hold on
-    imshow(binary(particle_mean(1,:) - 100:particle_mean(1,:) + 100,particle_mean(2,:) - 100:particle_mean(2,:) + 100,:));
-    title('Zoomed at estimated state')
-    plot(particles(2,:) - particle_mean(1,:) > 100
-    
-    hold off
-end
-
-
-
-
 
 
 if record_movie_flag
