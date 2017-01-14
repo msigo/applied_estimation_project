@@ -3,7 +3,7 @@ clear all, close all;
 rng(3);
 video_file = 3;
 motion_model_flag = 1;
-use_color_association_flag =1;
+use_color_association_flag =0;
 
 nCircles = 3;
 
@@ -15,11 +15,11 @@ record_movie_flag = 0;
 movieMakeArray = [%{2, 'yellow'}];
                   %{2, 'red'};]
                   %{2, 'blue'}];
-                  %{2, 'white'};
-                  {3, 'yellow'};]
+                  {2, 'white'}];
+                  %{3, 'yellow'};]
                   %{3, 'white'};
                   %{4, 'black'};
-                  %{4, 'white'}];
+                  %{5, 'yellow'}];
 
                   %{1, 'blue'}]
                  
@@ -138,7 +138,7 @@ for i = 1:size(movieMakeArray,1)
 
     nParticles = 1000;
 
-    sigma_xy = 45; % process noise in x,y.
+    sigma_xy = 45;%45; % process noise in x,y.
     sigma_xy_for_hough = 20; %measurement noise
     sigma_vec = 5;%process noise in velocity
 

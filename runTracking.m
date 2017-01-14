@@ -57,6 +57,7 @@ function M = runTracking(video_file, nParticles, R, sigma_xy_for_hough, threshol
 
         particle_mean = mean(X, 2);
         M(frameCounter) = draw_figures(X, Y_k, centers, radii, Y_k_binary, verbose, particle_mean, record_movie_flag); 
+        
         %show_state_estimated(X, Y_k);
         %show_particles_and_state_estimated(X, Y_k);
 
