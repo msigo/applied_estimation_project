@@ -13,22 +13,20 @@ numberOfPlots = verbose;
 
 
 
-    subplot(2,2,1)
-    
-    hold on 
-    imshow(binary);
-    title('Binary image')
-    
-    plot(particles(2,:), particles(1,:), '.', 'color', 'b');
-    viscircles(centers,radii);
-    
-    
-    
-    hold off
-    
-
+%    subplot(2,2,1)
+%    
+%    hold on 
+%    imshow(binary);
+%    title('Binary image')
+%    
+%    plot(particles(2,:), particles(1,:), '.', 'color', 'b');
+%    viscircles(centers,radii);
+%    
+%    
+%    
+%    hold off
         % Plot zoomed in at estimated state
-        subplot(2,2,2)
+        subplot(2,2,[1,2])
 
         hold on 
         imshow(binary);

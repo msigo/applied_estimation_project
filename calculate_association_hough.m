@@ -31,7 +31,9 @@ if (size(centers,1)==0)
             if ~use_color
                 % Spread the likelihood equally.
                 try
-                likelihood(k) = 1/N*ones(N);
+                likelihood = 1/N*ones(N);
+                outlier = ones(1,N);
+                return;
                 end
             end
             

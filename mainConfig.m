@@ -1,29 +1,29 @@
 clear all, close all;
 
-rng(3);
+rng(4);
 video_file = 3;
 motion_model_flag = 1;
-use_color_association_flag =0;
+use_color_association_flag =1;
 
 nCircles = 3;
 
 verbose = 3;
 
-record_movie_flag = 0;
+record_movie_flag = 1;
 
 
 movieMakeArray = [%{2, 'yellow'}];
                   %{2, 'red'};]
                   %{2, 'blue'}];
-                  {2, 'white'}];
-                  %{3, 'yellow'};]
+                  %{2, 'white'}];
+                  {3, 'yellow'};]
                   %{3, 'white'};
-                  %{4, 'black'};
-                  %{5, 'yellow'}];
+                  %{4, 'black'}];
+                  %{7, 'yellow'}];
 
-                  %{1, 'blue'}]
+                  %{1, 'black'}]
                  
-movieName = 'movie3trackYellow'                  
+movieName = 'movie5trackYellowMotionColor'                  
 
 for i = 1:size(movieMakeArray,1)              
     
@@ -36,7 +36,7 @@ for i = 1:size(movieMakeArray,1)
 
         case 1
             radii_thresholds = [10,15]; % Counted the radii of a ball to aprox 11 pixels.
-            video_file ='Billiard.mov';%'Billiard_black_ball.mov'
+            video_file ='Billiard_black_ball.mov';%'Billiard_black_ball.mov'
 
             switch(color_to_track)
                 case 'black'
@@ -133,6 +133,19 @@ for i = 1:size(movieMakeArray,1)
                     threshold_color = [250;250;250];
                     sigma_rgb = 50;
             end
+        case 7
+            level = 'bright';
+            hough_on = 1;
+            radii_thresholds = [5,15];
+            video_file = 'billiard_with_zoom.mp4';
+            color_to_track = 'red';
+
+            switch(color_to_track)               
+                case 'red'
+                     threshold_color = [255; 0; 0];
+                     sigma_rgb = 50; %rgb tolerance
+            end
+
 
     end
 
