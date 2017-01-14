@@ -1,4 +1,4 @@
-function [outlier,likelihood] = calculate_association_hough(particles,pic,pos_stD,centers,lambda_psi, target_rgb, color_stD, use_color)
+function [outlier,likelihood] = calculate_association_hough(particles,pic,pos_stD,centers,lambda_psi, target_rgb, use_color)
 image_height = size(pic, 1);
 image_width = size(pic, 2);
 
@@ -10,15 +10,9 @@ k_color = 0.2;
 likelihood = zeros(1,N);
 pic = permute(pic,[3 1 2]);
 
+A = 1/sqrt(2 * pi) * pos_stD;
+B =  - 0.5 / (pos_stD.^2);
 
-if use_color
-    A = 1/sqrt(2 * pi*pos_stD*color_stD);
-    B =  - 0.5 / (pos_stD*color_stD);
-else
-    A = 1/sqrt(2 * pi) * pos_stD;
-    B =  - 0.5 / (pos_stD.^2); 
-end
-    
 particles = round(particles);
 if (size(centers,1)==0)
     disp('no circles found')
